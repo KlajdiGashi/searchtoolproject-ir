@@ -12,7 +12,8 @@ This project is an Inverted Index Application that allows users to open a file, 
 ## Requirements
 - Python 3.x
 - tkinter library
-- 
+
+
 ## How to Use
 1. Clone the repository to your local machine.
 2. Ensure you have Python installed.
