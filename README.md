@@ -8,7 +8,6 @@ This project is an Inverted Index Application that allows users to open a file, 
 - View the index of words in the file
 - Search for specific words
 - Add new words to the file
-- Automatic refresh of the index after adding a word
 
 ## Requirements
 - Python 3.x
@@ -22,7 +21,7 @@ This project is an Inverted Index Application that allows users to open a file, 
 5. Use the GUI to open a file, search for words, and add new words as needed.
 
 ## Contributing
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+Contributions are welcome, If you'd like to contribute to this project, please follow these steps:
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature/new-feature`).
 3. Make your changes.
@@ -31,4 +30,4 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 6. Create a new Pull Request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
