@@ -1,13 +1,17 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
+import math
 
 file_path = ''
+num_documents = 0
+document_frequencies = {}
 
 def read_file():
-    global file_path
+    global file_path, num_documents
     file_path = filedialog.askopenfilename()
     if file_path:
+        num_documents += 1
         with open(file_path, 'r') as file:
             text = file.read()
         return text
@@ -19,6 +23,7 @@ def split_text(text):
     return words
 
 def build_index(words):
+    global document_frequencies
     index = {}
     for i, word in enumerate(words):
         word = word.lower()
@@ -26,12 +31,44 @@ def build_index(words):
             index[word].append(i)
         else:
             index[word] = [i]
+            if word in document_frequencies:
+                document_frequencies[word] += 1
+            else:
+                document_frequencies[word] = 1
     return index
 
-def output_index(index):
+def calculate_tf(words):
+    tf = {}
+    total_words = len(words)
+    for word in words:
+        word = word.lower()
+        if word in tf:
+            tf[word] += 1
+        else:
+            tf[word] = 1
+    for word, count in tf.items():
+        tf[word] = count / total_words
+    return tf
+
+def calculate_idf():
+    idf = {}
+    for word, df in document_frequencies.items():
+        idf[word] = math.log(num_documents / df)
+    return idf
+
+def calculate_tfidf(tf, idf):
+    tfidf = {}
+    for word, tf_value in tf.items():
+        tfidf[word] = tf_value * idf.get(word, 0)
+    return tfidf
+
+def output_index(index, tfidf, tf, idf):
     result_text.delete(1.0, tk.END)
     for word, positions in index.items():
-        result_text.insert(tk.END, f'{word}: {positions}\n')
+        tf_value = tf.get(word, 0)
+        idf_value = idf.get(word, 0)
+        tfidf_value = tfidf.get(word, 0)
+        result_text.insert(tk.END, f'{word}: {positions} (TF: {tf_value:.4f}, IDF: {idf_value:.4f}, TF-IDF: {tfidf_value:.4f})\n')
 
 def search_word(index):
     search_term = search_entry.get().strip().lower()
